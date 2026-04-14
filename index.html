@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <style>
+        body { background-color: #ffeef2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; }
+        #jar { font-size: 100px; cursor: pointer; transition: transform 0.2s; }
+        #jar:hover { transform: scale(1.1); }
+        #message-box { margin-top: 20px; padding: 20px; border-radius: 15px; background: white; width: 80%; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: none; color: #ff4d6d; font-weight: bold; }
+        .heart { position: fixed; font-size: 20px; animation: float 3s linear forwards; }
+        @keyframes float { to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="jar">🫙</div>
+    <h2 style="color: #ff4d6d;">Tap the jar for a surprise</h2>
+    <div id="message-box"></div>
+
+    <script>
+        const messages = [
+            "You're my favorite human! ❤️",
+            "I'm so proud of everything you do.",
+            "I'm thinking about you right now.",
+            "You look beautiful today (I just know it).",
+            "I owe you a huge hug! 🤗"
+        ];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        document.getElementById('jar').addEventListener('click', function() {
+            // Show Message
+            const box = document.getElementById('message-box');
+            box.style.display = 'block';
+            box.innerText = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Explosion of hearts
+            for(let i=0; i<15; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
